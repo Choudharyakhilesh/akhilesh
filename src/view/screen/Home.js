@@ -478,7 +478,7 @@ function Home(){
           </a>
         </div>
       </section>
-     
+     {/* 
       <footer class="footer-section">
         <div class="container">
             <div class="footer-text">
@@ -543,7 +543,7 @@ function Home(){
             </div>
         </div>
     </footer>
-     
+      */}
       
 
 

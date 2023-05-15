@@ -41,6 +41,7 @@ function Booking(){
     console.log(res.data); 
     
     alert('Booking Successfully')
+    window.location.reload();
     }
     return(
   
