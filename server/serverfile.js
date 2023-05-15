@@ -130,6 +130,20 @@ app.post('/addtocart',function(req,res){
      }
      res.send(resultdata)
   })
+
+  app.post('/payment',function(req,res){
+  let result=fs.appendFileSync('./data/payment.json', JSON.stringify(req.body),"utf8")
+     fs.appendFileSync('./data/payment.json', "\n","utf8")
+     let resultdata=""
+     if(!result){
+         resultdata={success:true,message:"pay successfully"}
+     }
+     else{
+         resultdata={success:false,message:"pay successfully"}
+         
+     }
+     res.send(resultdata)
+  })
  
  app.post('/login',function(req,res){
     let data=fs.readFileSync('./data/userdata.json',"utf8")
@@ -156,6 +170,29 @@ app.post('/addtocart',function(req,res){
         res.send({success:false,message:"user not login successfully"})
     }
    
+ })
+
+
+ app.post('/showpay',function(req,res){
+    let data=fs.readFileSync('./data/payment.json',"utf8")
+    let adddata=[]
+    data.split('\n').forEach(d=>{
+        adddata.push(d)
+    })
+    let add1=[]
+    adddata.map(d=>{
+        if(d!=="")
+        add1.push(JSON.parse(d))
+    })
+   let cartitem=[]
+   console.log(req.body.username);
+    add1.map(d=>{
+        if(req.body.user === d.username){
+                cartitem.push(d);
+        }
+    })
+   
+    res.send(cartitem)
  })
 
  app.post('/showbooking',function(req,res){

@@ -5,6 +5,9 @@ import { Container,Row,Col, Button } from "react-bootstrap";
 export default function Profile(){
     const[user,setUser] = useState(localStorage.getItem('user'));
     const[book,setBook] = useState('');
+    const[pay,setPay] = useState('');
+    const[payamount,setPayAmount] = useState('');
+
     useEffect(()=>{
         async function showdata(){
           let res=await axios.post("showbooking",user).catch(e=>console.log(e))
@@ -12,8 +15,28 @@ export default function Profile(){
           setBook(data)
         }
         showdata()
+        async function showdata1(){
+            let res=await axios.post("showpay",user).catch(e=>console.log(e))
+            let data = res?.data;
+            console.log(data);
+            setPayAmount(data[0].amount)
+          }
+          showdata1()
         },[])
         console.log(book);
+
+        async function payment(){
+            let params = {
+                user:user,
+                amount:pay
+            }
+
+            let res = await axios.post('payment',params).catch(d=>console.log(d))
+            let data = res?.data;
+            console.log(data);
+            setPay("")
+        }
+        console.log(payamount); 
     return(
         <>
         <Container>
@@ -48,10 +71,16 @@ export default function Profile(){
             
                 }
                 </table>
+                <div className="border">
+                    <label className="m-3">Enter Amount:-{payamount}</label><br/>
+                    
+                    </div>
                 </Col>
                 <Col>
-                <div>
-                    <Button>Pay</Button>
+                <div className="border">
+                    <label className="m-3">Enter Amount:-</label><br/>
+                    <input placeholder="enter payment" className="border" value={pay} onChange={(d=>setPay(d.target.value))}/><br/>
+                    <Button className="m-3" onClick={payment}>payment</Button>
                     </div>
                 </Col>
             </Row>

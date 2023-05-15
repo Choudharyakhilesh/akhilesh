@@ -32,6 +32,7 @@ function Booking(){
         select:select,
         select1:select1,
         select2:select2
+        
     
     }
     console.log(params);

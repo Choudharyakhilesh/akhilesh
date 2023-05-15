@@ -27,6 +27,7 @@ function App(){
     alert("logout")
     localStorage.clear()
     window.location.reload();
+    nav("/")
   }
   return(
     
@@ -58,8 +59,9 @@ function App(){
         <Route path='/Booking' element={<Booking/>}></Route>
         <Route path='/Register' element={<Register/>}></Route>
         <Route path='/Login' element={<Login/>}></Route>
-        <Route path='/profile' element={<Profile/>}></Route>
-        
+        {!user? <Route path='/' element={<Home/>} />
+       : <Route path='/profile' element={<Profile/>} ></Route>
+      }
       </Routes>
       
       <footer class="footer-section">
